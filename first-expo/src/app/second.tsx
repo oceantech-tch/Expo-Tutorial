@@ -1,16 +1,18 @@
-import { Link, useRouter } from "expo-router";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
+import { Text, View, StyleSheet, Pressable, Button } from "react-native";
 
 export default function Index() {
-  const router = useRouter();
+  const params = useLocalSearchParams<{ name?: string }>();
+
   return (
     <View style={styles.container}>
       <Text style={{ fontWeight: "700" }}>Second Index Screen</Text>
-      <Pressable onPress={() => router.push("/third")}>
-        <Text>Go to third screen</Text>
-      </Pressable>
-      <Link href="/" asChild push>
-      <Text>Push to home screen</Text>
+      <Text style={{ fontSize: 18 }}>Hello, {params.name}!</Text>
+      <Link href="/third" asChild push>
+      <Button title="Go to third screen" />
+      </Link>
+      <Link href={{ pathname: "/third", params: { name: "User" }}} asChild push>
+       <Button title="Greet user" />
       </Link>
     </View>
   );
@@ -21,5 +23,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#ff00ff"
   },
 });

@@ -28,23 +28,38 @@ export default function Index() {
 
   // SCREEN ANIMATION: We can specify the screen animation using the screenOptions prop of the Stack component. On iOS the screen slide in from the right by default while on Android we have a slight fade in effect.
 
+  // NAVIGATION BAR: We create a navigation bar using the Tab component for each screen inside the _layout file. We specified the tabBarIcon prop by using the MaterialCommunityIcons component to display an icon. We implemented a few options and a badge was added to the third screen. We also specified the tabBarActiveTintColor prop that changes the color of a tab when it's active. We also hides a couple of screens from the tab bar by using the 'href: null' prop. We can explore more of this wonderful features.
+
+  // STACK NAVIGATOR: By creating a folder, we can create a stack navigator. e.g., the 'second' folder contains three screens, we can navigate through all screens within this folder. But there's a catch, creating different screens will only multiply the tab bar icons. To avoid this, we can create a _layout.tsx file inside the 'second' folder and specify the stack component to wrap. Stack navigator lets us nagivate through screens within a folder without multiplying the tab bar icons. This is a useful feature in prod if we were to build a screen that go through another layer by layer.
+
+  // REMOVE DUPLICATE TITLES: Initially, the 'second' screen's childre were displaying duplicate titles, one being a title from tabs and the other from the Stack Navigator. All we had to do was go into the root layout and set 'headerShown: false' for that Stack Navigator folder and then assign each of the nested files in themselves.
+
+  // Add Stack Navigator to index file
 
 
+
+    // <View style={styles.container}>
+    //   <Text style={{ fontWeight: "700" }}>Index Screen</Text>
+    //   <Button title="Go to second screen" onPress={() => router.push("/second")} />
+    //   <Link href={{ pathname:"/second", params: { name: "Ocean" } }} asChild>
+    //     <Button title="Greet at /second" color="#f00" />
+    //   </Link>
+    //   <Button title="Greet Mary on /third" onPress={() => router.push({
+    //     pathname: "/third",
+    //     params: { name: "Mary" },
+    //   })} />
+    //   <Button title="View Proverb" onPress={() => router.push({ pathname: "/proverbs/[id]", params: { id: "2" } })} />
+    //   <Button title="View Product" onPress={() => router.push({
+    //     pathname: "/products/[category]/[productId]",
+    //     params: { category: "Shoes", productId: "1234"}
+    //   })} />
+    //   <Link href="/(auth)/auths/first">
+    //   {/* first-expo/src/app/(auth)/auths/first.tsx */}
+    //     <Text style={{ textDecorationLine: "underline" }}>Go to (auth)</Text>
+    //   </Link>
+    // </View>
     <View style={styles.container}>
-      <Text style={{ fontWeight: "700" }}>Index Screen</Text>
-      <Button title="Go to second screen" onPress={() => router.push("/second")} />
-      <Link href={{ pathname:"/second", params: { name: "Ocean" } }} asChild>
-        <Button title="Greet at /second" color="#f00" />
-      </Link>
-      <Button title="Greet Mary on /third" onPress={() => router.push({
-        pathname: "/third",
-        params: { name: "Mary" },
-      })} />
-      <Button title="View Proverb" onPress={() => router.push({ pathname: "/proverbs/[id]", params: { id: "2" } })} />
-        <Button title="View Product" onPress={() => router.push({
-          pathname: "/products/[category]/[productId]",
-          params: { category: "Shoes", productId: "1234"}
-        })} />
+      <Text style={{ fontWeight: "700", fontSize: 18 }}>Index Screen</Text>
     </View>
   );
 }

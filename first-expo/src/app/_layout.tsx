@@ -1,14 +1,65 @@
-import { Stack } from "expo-router";
+import { Stack, Tabs } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React from 'react';
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 export default function RootLayout() {
-  return (
+  {/* return (
     <React.Fragment>
       <StatusBar style="auto" />
       <Stack>
         <Stack.Screen name="proverbs/[id]" options={{ animation: "default"}} />
       </Stack>
+    </React.Fragment>
+  ) */}
+
+  return (
+    <React.Fragment>
+      <StatusBar style="auto" />
+      <Tabs screenOptions={{ tabBarActiveTintColor: "teal" }}>
+        <Tabs.Screen name="index" 
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="numeric-1-box-outline" size={size} color={color} />
+          )
+        }} />
+        <Tabs.Screen name="one" options={{
+          title: "First",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="numeric-2-box-outline" size={size} color={color} />
+          )
+        }} />
+        <Tabs.Screen name="second" options={{
+          title: "Second",
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="numeric-3-box-outline" size={size} color={color} />
+          )
+        }} />
+        <Tabs.Screen name="third" 
+        options={{
+          tabBarBadge: "2",
+          tabBarBadgeStyle: { color: "white" },
+          title: "Third",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="numeric-4-box-outline" size={size} color={color} />
+          )
+        }} />
+        <Tabs.Screen name="proverbs/[id]" options={{
+          href: null,
+          tabBarIcon: ({ color, size }) => {
+            <MaterialCommunityIcons name="numeric-5-box-outline" size={size} color={color} />
+          }
+        }} />
+        <Tabs.Screen name="products/[category]/[productId]"
+       options={{
+        href: null, // hides a screen from the tab bar
+          tabBarIcon: ({ color, size }) => {
+            <MaterialCommunityIcons name="numeric-6-box-outline" size={size} color={color} />
+          }
+        }} />
+      </Tabs>
     </React.Fragment>
   )
 }

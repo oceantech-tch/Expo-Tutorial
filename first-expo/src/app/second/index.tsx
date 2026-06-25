@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Pressable, Button } from "react-native";
 
 export default function Index() {
   const params = useLocalSearchParams<{ name?: string }>();
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -14,6 +15,9 @@ export default function Index() {
       <Link href={{ pathname: "/third", params: { name: "User" }}} asChild push>
        <Button title="Greet user" />
       </Link>
+      <View>
+        <Button title="Push to nested screen" onPress={() => router.push("/second/nested")} />
+      </View>
     </View>
   );
 }

@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, Pressable, Button } from "react-native";
 
 export default function Index() {
   const router = useRouter();
+  const canGoBack = router.canGoBack();
+
   return (
   // Parse the /push prop' to ensure a new screen is pushed unto the stack. router.push vs replace. The later removes the previous path and prevent you from going back while the other lets you move back.
   // Run 'npx expo-router-sitemap' to view every routes in our application
@@ -11,6 +13,8 @@ export default function Index() {
   // asChild prop is used to pass a keystroke to a nested component e.g., a Button inside a Link component
 
   // push = index - second - third ..., when you go back, you go the same amount of screens back
+
+  // RUN 'npx expo-router-sitemap' to list all available routes in our application after installing the package using npx expo install @expo-router-sitemap
 
   // dismissTo = index - second - third ..., click the second button to dismissTo (index), this will clear previous screens and take you back no matter how many screens you've pushed unto the stack. 
 
@@ -34,8 +38,15 @@ export default function Index() {
 
   // REMOVE DUPLICATE TITLES: Initially, the 'second' screen's childre were displaying duplicate titles, one being a title from tabs and the other from the Stack Navigator. All we had to do was go into the root layout and set 'headerShown: false' for that Stack Navigator folder and then assign each of the nested files in themselves.
 
-  // Add Stack Navigator to index file
+  // Add Stack Navigator to index route. Here we want to move the root index into a group folder called home. Without the grouping '()', if we start our app it will fail even after specifying the correct route name therefore we have to turn it into a grouping folder. -- Create a home grouping folder and move the root index file into it. Remember you have to change the path in our root layout file. We created a file and modified the screen headers and set a title to it. This let us add a stack navigator to index route.
 
+  // First screen to open = When we first open our app, the index screen will always be the first one rendered, to set a specific screen to be displayed first, we must use redirect()
+
+  // EXTRA: Our nested screen '/third' has a behavior where after navigating into the inner screens, clicking on the navigator will return it back, to prevent this behavior we set popToTopOnBlur: true in the root layout stack
+
+  // To prevent us from seeing the animation whwn navigating between the nested screens to another, we go into the Layout file inside the /second folder and fetch the pathname using the usePathname() hook. The usePathname hook is used to feth the pathname of a current screen. After getting it, we can manipulate it, check /second/_layout.tsx for sample
+
+  // Tab bar back action: Another interesting thing is how the tabs history works, here we will implement a 'Back' button to the index file by making use of the router.back(), we add this buttons to all our screens, but there's a catch to this, it is currently in dev stage so we need to check if we can go back using router.canGoBack(), check below for sample. The logic is to declare router using useRouter() hook, canGoBack from router.back(), and then we declare a conditional display for the 'Back' button. This works but doesn't make the flow to go in order, to fix this we add a 'backBehavior' prop in the Tabs component in the RootLayout() file, add it to the Tabs Wrapper and set the value to "order"
 
 
     // <View style={styles.container}>
@@ -60,6 +71,10 @@ export default function Index() {
     // </View>
     <View style={styles.container}>
       <Text style={{ fontWeight: "700", fontSize: 18 }}>Index Screen</Text>
+      <Button title="Push to /home-nested" onPress={() => router.push("/home-nested")}/>
+      {canGoBack ? (
+      <Button title="Back" onPress={() => router.back()} />
+      ) : null }
     </View>
   );
 }

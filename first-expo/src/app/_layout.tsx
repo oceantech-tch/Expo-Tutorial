@@ -16,10 +16,14 @@ export default function RootLayout() {
   return (
     <React.Fragment>
       <StatusBar style="auto" />
-      <Tabs screenOptions={{ tabBarActiveTintColor: "teal" }}>
-        <Tabs.Screen name="index" 
+      <Tabs 
+      screenOptions={{ tabBarActiveTintColor: "teal" }}
+      backBehavior="order"
+      >
+        <Tabs.Screen name="(home)" 
         options={{
           title: "Home",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="numeric-1-box-outline" size={size} color={color} />
           )
@@ -33,6 +37,7 @@ export default function RootLayout() {
         <Tabs.Screen name="second" options={{
           title: "Second",
           headerShown: false,
+          popToTopOnBlur: true,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="numeric-3-box-outline" size={size} color={color} />
           )

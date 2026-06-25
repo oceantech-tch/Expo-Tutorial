@@ -64,7 +64,16 @@ export default function Index() {
   // USING MODALS IN EXPO ROUTER: 
   // Alert. The 'Alert' is platform specific it will look different on each platforms. We use alert() in this example since we are testing through the web
 
-  // React Native Modal
+  // React Native Modal: 
+  // The react native modal was built using the Modal component that was imported from react-native, we use it along with useRouter hook to set a push method. We declared a modal state and open and closes the Modal onPress.
+
+  // Expo Router Modal
+  // I love this as it is quite operational, both are good but this is preferable by me. We moved every folder into a new grouped folder called '(home)' then we created a new RootLayout file, we created a new modal file inside it and we call this modal from the landing screen. This behavior is more straightforward and practical as there's a couple prop add-ons such as the 'presentation: "modal"' prop that was passed into the Stack component options inside the layout file.
+
+  // Multiple Screens In One Modal - This is done same way we added multiple screens to a Stack
+
+  // Deep Linking into a Modal
+  
 
 
     // <View style={styles.container}>
@@ -99,6 +108,9 @@ export default function Index() {
       <br />
       <Button title="Open Modal" onPress={() => setModalVisible(true)} />
       <br />
+      <Link href="/modal" push asChild>
+      <Button title="Open Router Modal" />
+      </Link>
       <Modal visible={modalVisible} 
       animationType="slide"
       // - for better view, instead of 'transparent', use -

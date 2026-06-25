@@ -1,10 +1,23 @@
 import { Link, useRouter } from "expo-router";
-import { Text, View, StyleSheet, Pressable, Button } from "react-native";
+import { Text, View, StyleSheet, Alert, Button, Modal } from "react-native";
+import { useState } from "react";
 
 export default function Index() {
   const router = useRouter();
   const canGoBack = router.canGoBack();
+  const [modalVisible, setModalVisible] = useState(false);
 
+  const handleOpenAlert = () => {
+    // console.log("Alert...")
+    // Alert.alert("Hello"); - This works on mobiles, browser is killing it
+    alert("Hello");
+    Alert.alert("Warning!", "Are you sure you want to proceed?", [
+        { text: "Cancel", style: "cancel" },
+        { text: "Confirm", style: "destructive", onPress: () => { console.log("Let's go!")}}
+    ])
+  };
+
+  
   return (
   // Parse the /push prop' to ensure a new screen is pushed unto the stack. router.push vs replace. The later removes the previous path and prevent you from going back while the other lets you move back.
   // Run 'npx expo-router-sitemap' to view every routes in our application
@@ -48,6 +61,11 @@ export default function Index() {
 
   // Tab bar back action: Another interesting thing is how the tabs history works, here we will implement a 'Back' button to the index file by making use of the router.back(), we add this buttons to all our screens, but there's a catch to this, it is currently in dev stage so we need to check if we can go back using router.canGoBack(), check below for sample. The logic is to declare router using useRouter() hook, canGoBack from router.back(), and then we declare a conditional display for the 'Back' button. This works but doesn't make the flow to go in order, to fix this we add a 'backBehavior' prop in the Tabs component in the RootLayout() file, add it to the Tabs Wrapper and set the value to "order"
 
+  // USING MODALS IN EXPO ROUTER: 
+  // Alert. The 'Alert' is platform specific it will look different on each platforms. We use alert() in this example since we are testing through the web
+
+  // React Native Modal
+
 
     // <View style={styles.container}>
     //   <Text style={{ fontWeight: "700" }}>Index Screen</Text>
@@ -69,12 +87,30 @@ export default function Index() {
     //     <Text style={{ textDecorationLine: "underline" }}>Go to (auth)</Text>
     //   </Link>
     // </View>
+
     <View style={styles.container}>
       <Text style={{ fontWeight: "700", fontSize: 18 }}>Index Screen</Text>
       <Button title="Push to /home-nested" onPress={() => router.push("/home-nested")}/>
       {canGoBack ? (
       <Button title="Back" onPress={() => router.back()} />
       ) : null }
+      <br />
+      <Button title="Open Alert" onPress={handleOpenAlert} />
+      <br />
+      <Button title="Open Modal" onPress={() => setModalVisible(true)} />
+      <br />
+      <Modal visible={modalVisible} 
+      animationType="slide"
+      // - for better view, instead of 'transparent', use -
+      presentationStyle="pageSheet"
+      onRequestClose={() => setModalVisible(false)}>
+        <View style={styles.container}>
+            <View style={{ padding: 12, borderRadius: "5px", backgroundColor: "white" }}>
+                <Text style={{ fontSize: 18, fontWeight: "700", margin: 10 }}>Custom styled modal</Text>
+                <Button title="Close" onPress={() => setModalVisible(false)} />
+            </View>
+        </View>
+      </Modal>
     </View>
   );
 }

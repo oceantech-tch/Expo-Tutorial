@@ -72,8 +72,19 @@ export default function Index() {
 
   // Multiple Screens In One Modal - This is done same way we added multiple screens to a Stack
 
-  // Deep Linking into a Modal
+  // Deep Linking into a Modal TODO: (Check more into it)
+
+  // Clear Cache: npx expo start --reset-cache
   
+  // Auth Flow. When our app gave the ability to aithenticate users, we need two views which are login and logout. With file based routing we cant just comditionally define screens like we would in react mavigation so we use 'redirects'
+  /**
+   * Add auth redirect - Create a new folder called '(protected), this will contain screens a user cant access without being authenticated.
+   * 
+   * Storing the auth state -
+   * We want to be able read and write auth states for uses on the app. create a 'utils/authContext.tsx'. cont... 
+   * 
+   * Persist auth state across app launches: We wrote the logic and stored the auth states which means that it is saved into memory, but when we refresh the app, it return to default, that isnt good for prod. We want to save and read on launch to device storage. We use AsyncStorage. @react-native-async-storage/async-storage. Check authContext for practical steps. 
+   */
 
 
     // <View style={styles.container}>
@@ -132,6 +143,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#00ff00"
   },
 });

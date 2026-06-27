@@ -1,0 +1,12 @@
+Route resolution order:
+-- When the Router tries to load a defualt, in this case the 'index' routes in our (tabs) layout, when this is guarded then Router will open the next available unguarded route. 
+-- Add another screen called 'create-accounts' -inside the (tabs) layout ofc. On refresh, router is supposed to open the index but because its guarded, it will open the first route which is the create account route. An alternative is to Redirect user, lets implement this by checking if the user need so create account first.. go to create-account.tsx., or better we can use the protected routes by declaring a const var and only display a screen if the guard is a certain value, check root layout.
+
+Nesting protected routes:
+-- Protected routes can be nested, we will move the route for create-account into the one with sign-in, this way both sign in and create... is available if a user is not logged in. But the create-account is only available if the user needs to create an account
+
+Logged in modals:
+-- This was simply demomstrated by creating a 'modal' file and adding it to the protected route. The goal is to make it accessible to logged in users only.
+
+Persists auth state:
+-- We've previously used React context to create persistent state across our app but we want to use something different. We will use "zustand" which is a minimal context management and "Expo SecureStore" which is a library for encrypted device storage. install both using the 'npx expo install ..."

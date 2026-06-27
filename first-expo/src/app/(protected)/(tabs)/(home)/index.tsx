@@ -84,6 +84,14 @@ export default function Index() {
    * We want to be able read and write auth states for uses on the app. create a 'utils/authContext.tsx'. cont... 
    * 
    * Persist auth state across app launches: We wrote the logic and stored the auth states which means that it is saved into memory, but when we refresh the app, it return to default, that isnt good for prod. We want to save and read on launch to device storage. We use AsyncStorage. @react-native-async-storage/async-storage. Check authContext for practical steps. 
+   * 
+   * Show Splash Screen while Auth state is undecided yet, a sample logic is made inside 'AuthContext' file. There we simulated a delay and included a splash screen to view an image while auth state is still being fetched. 
+   */
+
+  // Protected routes at a glance
+  /**
+   * We want to route unauthenticated users to a particular route (signIn), while the authenticated users are being routed to the app layouts. We use protected routes to achieve this by running certain checks and keep auth states persistently. The screens would be wrapped in a Stack.protected by giving it the guard prop so that when 'guard' is true, the screen may be accessed otherwise unauthorized. Open '../second-expo' for full practical example
+   * 
    */
 
 

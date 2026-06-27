@@ -18,15 +18,15 @@ export default function RootLayout() {
       <StatusBar style="auto" />
       <Stack>
         <Stack.Protected guard={isLoggedIn}>
-
          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack.Protected>
-        <Stack.Protected guard={!isLoggedIn && !shouldCreateAccount}>
-          <Stack.Screen name="sign-in" />
-        </Stack.Protected>
-        <Stack.Protected guard={shouldCreateAccount}>
-          <Stack.Screen name="create-account" />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        </Stack.Protected>
+
+        <Stack.Protected guard={!isLoggedIn}>
+          <Stack.Screen name="sign-in" />
+         <Stack.Protected guard={shouldCreateAccount}>
+          <Stack.Screen name="create-account" />
+         </Stack.Protected>
         </Stack.Protected>
       </Stack>
     </React.Fragment>

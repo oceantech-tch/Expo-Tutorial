@@ -10,3 +10,6 @@ Logged in modals:
 
 Persists auth state:
 -- We've previously used React context to create persistent state across our app but we want to use something different. We will use "zustand" which is a minimal context management and "Expo SecureStore" which is a library for encrypted device storage. install both using the 'npx expo install ..."
+
+Adding an onboarding flow:
+-- 

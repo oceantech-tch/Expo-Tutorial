@@ -9,7 +9,10 @@ Logged in modals:
 -- This was simply demomstrated by creating a 'modal' file and adding it to the protected route. The goal is to make it accessible to logged in users only.
 
 Persists auth state:
--- We've previously used React context to create persistent state across our app but we want to use something different. We will use "zustand" which is a minimal context management and "Expo SecureStore" which is a library for encrypted device storage. install both using the 'npx expo install ..."
+-- We've previously used React context to create persistent state across our app but we want to use something different. We will use "zustand" which is a minimal context management and "Expo SecureStore" which is a library for encrypted device storage. install both using the 'npx expo install ...'. We defined three states inside authStore; logIn, logOut, and isLoggedIn. This check are being called and used inside the RootLayout() where we first check if a user is logged in, if they are they should have access to the dashboard otherwise deny entry. We simulated a sign-in session.
 
 Adding an onboarding flow:
--- 
+-- We simulated an onboarding flow. We created a new folder 'onboarding', and then we create three files, two destination files plus a layout. We then go into the RootLayout() to make sure the onboarding routes are protected. We added a guard prop that a user must see this screens unless theyve complete onboarding. Once they complete onboarding, we navigate them to sign-in screen. This onboarding process is similar to a user navigating through a flow and then if they didnt complete the flow they should not have access to some screens.
+
+Conditional bottom tabs:
+-- We can use Protected routes to create Conditional bottom tabs. Create a file called 'vip' inside (tabs) for vip users. Add a Tab component in the Tabs layout and wrap it with a Tabs.Protected component, set the guard value to 'false' to see as it will not show and 'true' to display it. Let's now make it dynamical by creating a check and function in our authState. A check called 'isVip' will be parsed into the Tabs guard prop and we create a new Button component inside sign-in to specify the VIP logIn route, when a user click this button, we invoke a function that we created which is called 'logInAsVip'. 

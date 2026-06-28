@@ -6,14 +6,21 @@ import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
 type UserState = {
     isLoggedIn: boolean;
     shouldCreateAccount: boolean;
+    hasCompletedOnboarding: boolean;
+    isVip: boolean;
     logIn: () => void;
     logOut: () => void;
+    completeOnboarding: () => void;
+    resetOnboarding: () => void;
+    logInAsVip: () => void;
 };
 
 // export as hook. Persist
 export const useAuthStore = create(persist<UserState>((set) => ({
     isLoggedIn: false,
     shouldCreateAccount: true,
+    hasCompletedOnboarding: false,
+    isVip: false,
     logIn: () => {
         set((state) => {
             return {
@@ -26,10 +33,36 @@ export const useAuthStore = create(persist<UserState>((set) => ({
         set((state) => {
             return {
                 ...state,
-                isLoggedIn: false
+                isLoggedIn: false,
+                isVip: false
             };
         });
     },
+    completeOnboarding: () => {
+        set((state) => {
+            return {
+                ...state,
+                hasCompletedOnboarding: true, 
+            }
+        });
+    },
+    resetOnboarding: () => {
+        set((state) => {
+            return {
+                ...state,
+                hasCompletedOnboarding: false,
+            }
+        })
+    },
+    logInAsVip: () => {
+        set((state) => {
+            return {
+                ...state,
+                isVip: true,
+                isLoggedIn: true,
+            }
+        })
+    }
 }), {
     name: "auth-store",
     storage: createJSONStorage(() => ({

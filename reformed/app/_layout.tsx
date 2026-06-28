@@ -11,7 +11,7 @@ export default function RootLayout() {
   // We added a Protected route to sign in and create..., this redirect users to create account or sign in if they dont need to
 
   // Delete hardcoded constants and import from authStore
-  const { isLoggedIn, shouldCreateAccount } = useAuthStore();
+  const { isLoggedIn, shouldCreateAccount, hasCompletedOnboarding } = useAuthStore();
 
   return (
     <React.Fragment>
@@ -22,11 +22,14 @@ export default function RootLayout() {
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
         </Stack.Protected>
 
-        <Stack.Protected guard={!isLoggedIn}>
+        <Stack.Protected guard={!isLoggedIn && hasCompletedOnboarding}>
           <Stack.Screen name="sign-in" />
          <Stack.Protected guard={shouldCreateAccount}>
           <Stack.Screen name="create-account" />
          </Stack.Protected>
+        </Stack.Protected>
+        <Stack.Protected guard={!hasCompletedOnboarding}>
+         <Stack.Screen name="onboarding" options={{ headerShown: false }} />
         </Stack.Protected>
       </Stack>
     </React.Fragment>
